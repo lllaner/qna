@@ -5,10 +5,10 @@ feature 'User can add an answer to a question', %q{
   As an authenticated user
   I'd like be able to answer on a question
 } do
-  given(:question) { create(:question) }
+  given(:user) { create(:user) }
+  given(:question) { create(:question, user_id: user.id) }
 
   describe 'Authenticated user' do
-    given(:user) { create(:user) }
 
     background do
       sign_in(user)

@@ -3,6 +3,8 @@
 
 h1= @question.title
 p= @question.body
+-if @question.user == current_user
+  = link_to 'Delete question', question_path(@question), method: :delete
 
 = form_with model: [@question, @answer] do |f|
   = f.label :body

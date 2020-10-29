@@ -2,12 +2,9 @@ class AnswersController < ApplicationController
   before_action :authenticate_user!, only: %i[create]
   before_action :load_question, only: %i[create]
   before_action :load_answers, only: %i[create]
-  def new
-    @answer = Answer.new
-  end
 
   def create
-    @answer = @question.answers.create(answer_params)
+    @answer = @question.answers.create(answer_params.merge(user_id: current_user.id))
     if @answer.save
       redirect_to @question, notice: 'The Answer was successfully created'
     else
@@ -26,6 +23,6 @@ class AnswersController < ApplicationController
   end
 
   def answer_params
-    params.require(:answer).permit(:body, :question_id)
+    params.require(:answer).permit(:body, :question_id, :user_id)
   end
 end
