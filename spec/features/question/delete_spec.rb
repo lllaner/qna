@@ -22,4 +22,11 @@ feature 'User can delete question', %q{
       expect(page).to_not have_content "Delete question"
     end
   end
+
+  describe 'Unauthenticated' do
+    scenario "User can't see delete question button" do
+      visit question_path(question)
+      expect(page).to_not have_content "Delete question"
+    end
+  end
 end
