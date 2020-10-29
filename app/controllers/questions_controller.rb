@@ -19,7 +19,7 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    if @question.user == current_user && @question.destroy
+    if current_user.author?(@question) && @question.destroy
       redirect_to questions_path, notice: 'The question was successfully deleted.'
     else
       render :show
@@ -47,6 +47,6 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit(:title, :body, :user_id)
+    params.require(:question).permit(:title, :body)
   end
 end

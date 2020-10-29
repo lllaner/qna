@@ -14,10 +14,10 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    if @answer.user == current_user && @answer.destroy
+    if current_user.author?(@answer) && @answer.destroy
       redirect_to question_path(@answer.question), notice: 'The answer was successfully deleted.'
     else
-      render :show
+      redirect_to question_path(@answer.question)
     end
   end
 

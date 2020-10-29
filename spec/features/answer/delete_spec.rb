@@ -20,7 +20,7 @@ feature 'User can delete an answer', %q{
     scenario "user can't see a delete button" do
       sign_in(users.last)
       visit question_path(question)
-
+      expect(page).to_not have_content 'Delete answer'
     end
   end
 
